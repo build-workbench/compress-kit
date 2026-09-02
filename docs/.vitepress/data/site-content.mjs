@@ -83,6 +83,24 @@ export const algorithmCatalog = [
       zh: ['位图图像', '日志文件', '预处理步骤'],
     },
   },
+  {
+    id: 'lzss',
+    slug: 'lzss',
+    icon: '🔁',
+    name: { zh: 'LZSS 字典编码' },
+    chartLabel: { zh: 'LZSS' },
+    description: {
+      zh: '滑动窗口 + 距离引用的字典压缩，gzip 系算法的 LZ 基础。',
+    },
+    compression: { zh: '中等' },
+    speed: { zh: '快速' },
+    compressionTag: { zh: '结构感知' },
+    speedLevel: 'fast',
+    compressionLevel: 'medium',
+    bestFor: {
+      zh: ['重复片段数据', '文本与代码', '字典编码学习'],
+    },
+  },
 ]
 
 export const benchmarkCatalog = {
@@ -184,6 +202,7 @@ const sidebarCatalog = [
       { text: { zh: '算术编码' }, link: '/algorithms/arithmetic' },
       { text: { zh: '区间编码' }, link: '/algorithms/range' },
       { text: { zh: '行程编码' }, link: '/algorithms/rle' },
+      { text: { zh: 'LZSS 字典编码' }, link: '/algorithms/lzss' },
     ],
   },
   {

@@ -12,6 +12,7 @@
 | Capability | Path | Description |
 |---|---|---|
 | `binary-formats` | `openspec/specs/binary-formats/` | v2 binary format identities, CRC, size limits |
+| `lzss` | `openspec/changes/2026-09-02-add-lzss-algorithm/specs/lzss/` | LZSS dictionary coding format |
 
 ## External boundaries
 

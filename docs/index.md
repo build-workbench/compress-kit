@@ -14,6 +14,7 @@ description: 使用 C++17 实现的四种经典无损压缩算法
 | [算术编码](/algorithms/arithmetic) | `AEN2` | 逼近熵极限的区间编码 |
 | [区间编码](/algorithms/range) | `RCN2` | 算术编码的整数、字节级实现 |
 | [RLE 行程编码](/algorithms/rle) | `RLE2` | 对连续重复数据简单高效 |
+| [LZSS 字典编码](/algorithms/lzss) | `LZS2` | 滑动窗口引用，gzip 系算法的 LZ 基础 |
 
 ## 快速开始
 

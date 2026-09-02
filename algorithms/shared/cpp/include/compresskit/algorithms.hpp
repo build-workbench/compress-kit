@@ -15,5 +15,7 @@ std::vector<uint8_t> rangecoder_encode_buffer(const std::vector<uint8_t>& input)
 std::vector<uint8_t> rangecoder_decode_buffer(const std::vector<uint8_t>& input);
 std::vector<uint8_t> rle_encode_buffer(const std::vector<uint8_t>& input);
 std::vector<uint8_t> rle_decode_buffer(const std::vector<uint8_t>& input);
+std::vector<uint8_t> lzss_encode_buffer(const std::vector<uint8_t>& input);
+std::vector<uint8_t> lzss_decode_buffer(const std::vector<uint8_t>& input);
 
 }  // namespace compresskit

@@ -40,7 +40,7 @@ The public specification and implementation SHALL use the same raw-input, decode
 - **THEN** acceptance or size-limit rejection SHALL match the documented `<` or `<=` operator
 
 ### Requirement: Frozen format fixtures
-The repository SHALL retain v1 rejection and v2 decoding fixtures with reproducible manifests for all four algorithms.
+The repository SHALL retain v1 rejection and v2 decoding fixtures with reproducible manifests for all supported algorithms.
 
 #### Scenario: Run fixture suite
 - **WHEN** the standard test command runs

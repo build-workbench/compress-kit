@@ -42,6 +42,7 @@ constexpr char HUFFMAN_MAGIC[4] = {'H', 'F', 'M', '2'};
 constexpr char ARITHMETIC_MAGIC[4] = {'A', 'E', 'N', '2'};
 constexpr char RANGE_MAGIC[4] = {'R', 'C', 'N', '2'};
 constexpr char RLE_MAGIC[4] = {'R', 'L', 'E', '2'};
+constexpr char LZSS_MAGIC[4] = {'L', 'Z', 'S', '2'};
 
 // ── Legacy (v1) magic numbers ──────────────────────────────────────────────
 //

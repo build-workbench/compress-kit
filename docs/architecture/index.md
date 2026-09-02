@@ -10,7 +10,7 @@ CompressKit 在算法核心之上仅保留一层薄 buffer 层：
 ```text
 CLI 层 (cli_launcher.hpp)
   -> Buffer 层 (encode_buffer / decode_buffer，接收 BufferTransform 函数指针)
-  -> 算法核心 (Huffman / Arithmetic / Range / RLE)
+  -> 算法核心 (Huffman / Arithmetic / Range / RLE / LZSS)
   -> 共享工具 (result / buffer_api / bit_io / frequency_table / serialization / checksum)
 ```
 
@@ -29,6 +29,7 @@ CLI 层 (cli_launcher.hpp)
 | Arithmetic | `AEN2` | 同上 | 位流 |
 | Range Coder | `RCN2` | 同上 | 字节流 |
 | RLE | `RLE2` | — | `(count:u32 LE, value:u8)*` |
+| LZSS | `LZS2` | — | flag 字节组 + literal / match(2B) |
 
 频率表顺序：符号 0-255（字节值）+ 符号 256（EOF），小端序，总大小 1028 字节。
 Legacy magic（`HFMN`/`AENC`/`RCNC`）与无 magic 的 v1 RLE 一律拒绝。

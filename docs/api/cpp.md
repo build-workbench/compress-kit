@@ -99,6 +99,21 @@ cmake -S . -B build && cmake --build build
 
 ---
 
+## LZSS (`algorithms/lzss/cpp/main.cpp`)
+
+```bash
+./build/lzss_cpp encode input.bin output.lzs
+./build/lzss_cpp decode output.lzs decoded.bin
+```
+
+### 文件格式
+
+`LZS2` 魔数，随后 8 符号一组的 flag 字节流：bit=1 表示 literal（1 字节），
+bit=0 表示 match（2 字节：`dist-1` (12 bit) + `len-3` (4 bit)，距离上限
+4096，长度 3-18），末尾 4 字节 CRC-32。
+
+---
+
 ## 通用模式
 
 | 模式 | 描述 |

@@ -127,6 +127,8 @@ int main() {
          compresskit::rangecoder_decode_buffer, true},
         {"RLE", compresskit::RLE_MAGIC, compresskit::rle_encode_buffer,
          compresskit::rle_decode_buffer, false},
+        {"LZSS", compresskit::LZSS_MAGIC, compresskit::lzss_encode_buffer,
+         compresskit::lzss_decode_buffer, false},
     };
 
     struct Corpus {
@@ -193,6 +195,9 @@ int main() {
     CHECK(compresskit::RANGE_MAGIC[3] == '2');
     CHECK(compresskit::RLE_MAGIC[0] == 'R');
     CHECK(compresskit::RLE_MAGIC[3] == '2');
+    CHECK(compresskit::LZSS_MAGIC[0] == 'L');
+    CHECK(compresskit::LZSS_MAGIC[1] == 'Z');
+    CHECK(compresskit::LZSS_MAGIC[3] == '2');
 
     // Legacy magic rejection: Huffman/Arithmetic/Range v1 archives must be
     // rejected with "unsupported legacy format", not "checksum mismatch".

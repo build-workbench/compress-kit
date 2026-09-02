@@ -32,6 +32,7 @@ add_compresskit_algo(huffman_cpp algorithms/huffman/cpp/main.cpp)
 add_compresskit_algo(arithmetic_cpp algorithms/arithmetic/cpp/main.cpp)
 add_compresskit_algo(rangecoder_cpp algorithms/range/cpp/main.cpp)
 add_compresskit_algo(rle_cpp algorithms/rle/cpp/main.cpp)
+add_compresskit_algo(lzss_cpp algorithms/lzss/cpp/main.cpp)
 
 # Tests
 enable_testing()
@@ -41,6 +42,7 @@ add_executable(test_lifecycle
     algorithms/arithmetic/cpp/main.cpp
     algorithms/range/cpp/main.cpp
     algorithms/rle/cpp/main.cpp
+    algorithms/lzss/cpp/main.cpp
 )
 target_link_libraries(test_lifecycle PRIVATE compresskit_codec)
 target_compile_definitions(test_lifecycle PRIVATE COMPRESSKIT_NO_MAIN)

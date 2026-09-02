@@ -29,6 +29,7 @@ cd docs && npm ci && npm run dev
 | 算术编码 | 理解熵编码与压缩率对比 |
 | 区间编码 | 对比算术编码风格实现 |
 | RLE 行程编码 | 高重复数据与简单格式学习 |
+| LZSS 字典编码 | 重复片段数据，gzip 系算法的 LZ 基础 |
 
 所有命令行工具都遵循：
 
@@ -63,6 +64,7 @@ algorithms/
   arithmetic/cpp/   # 算术编码 CLI
   range/cpp/        # 区间编码 CLI
   rle/cpp/          # RLE 行程编码 CLI
+  lzss/cpp/         # LZSS 字典编码 CLI
   shared/cpp/       # 公共库（序列化、位读写、频率表、CLI 框架）
 docs/               # VitePress 中文文档站
 tests/              # 测试语料生成与 CLI smoke 测试

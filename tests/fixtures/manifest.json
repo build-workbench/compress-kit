@@ -44,6 +44,16 @@
       "archive_sha256": "c5436fe948802d969fca0dcd4ebc411c4556c0b546f70594c47e202a843fc8b1"
     },
     {
+      "id": "v2-lzss-empty",
+      "algorithm": "lzss",
+      "format": "v2",
+      "input": "inputs/empty.bin",
+      "archive": "v2/lzss/empty.dat",
+      "expect": "decode",
+      "input_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archive_sha256": "662116955dd77a849e3afbd54f7b14b3d4a0f6ca380a46c7678677a5994ac163"
+    },
+    {
       "id": "v2-huffman-byte42",
       "algorithm": "huffman",
       "format": "v2",
@@ -84,6 +94,16 @@
       "archive_sha256": "f42fabc9cd974fabc5eaebc87b82d6cdbbcd40be1bd67c0674b4f6b15e464efb"
     },
     {
+      "id": "v2-lzss-byte42",
+      "algorithm": "lzss",
+      "format": "v2",
+      "input": "inputs/byte42.bin",
+      "archive": "v2/lzss/byte42.dat",
+      "expect": "decode",
+      "input_sha256": "df7e70e5021544f4834bbee64a9e3789febc4be81470df629cad6ddb03320a5c",
+      "archive_sha256": "6ca993abe21bb11b818cc869f025da5e3e87343b496f5f1ac2a5ff279ed2e6d7"
+    },
+    {
       "id": "v2-huffman-ascii",
       "algorithm": "huffman",
       "format": "v2",
@@ -122,6 +142,16 @@
       "expect": "decode",
       "input_sha256": "df1505ecd40974ec43f784df50f1e445becd9568ce68193d74238c7b52aba1c5",
       "archive_sha256": "a07672b696a3db9e634e4d1a0d18e50694537b3bc3bbe3e91cc97921b982d450"
+    },
+    {
+      "id": "v2-lzss-ascii",
+      "algorithm": "lzss",
+      "format": "v2",
+      "input": "inputs/ascii.bin",
+      "archive": "v2/lzss/ascii.dat",
+      "expect": "decode",
+      "input_sha256": "df1505ecd40974ec43f784df50f1e445becd9568ce68193d74238c7b52aba1c5",
+      "archive_sha256": "560eed2f943adcaa625db7933e23854dcf66d891805b21236ed0e3cf8a510e25"
     },
     {
       "id": "v1-huffman",

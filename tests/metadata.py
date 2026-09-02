@@ -25,6 +25,7 @@ ALGORITHMS: tuple[AlgorithmEntry, ...] = (
     AlgorithmEntry("arithmetic", "aenc", ROOT / "build/arithmetic_cpp"),
     AlgorithmEntry("range", "rcnc", ROOT / "build/rangecoder_cpp"),
     AlgorithmEntry("rle", "rle", ROOT / "build/rle_cpp"),
+    AlgorithmEntry("lzss", "lzs", ROOT / "build/lzss_cpp"),
 )
 
 ALGORITHM_ORDER: tuple[str, ...] = tuple(a.name for a in ALGORITHMS)
