@@ -15,12 +15,17 @@ style categories and uses semantic versioning for releases.
 - `make stats` prints Shannon entropy versus each algorithm's bits/byte.
 - CLI tools accept `--help` / `-h` to print usage.
 - Decoders report size-limit violations as `ERR_SIZE_LIMIT` (previously misclassified as corruption).
+- Four algorithm pages gain hands-on experiment sections (entropy bound, skewed distributions, degenerate inputs, CRC tampering).
+- New page "经典 vs 现代" compares all algorithms against gzip/zstd/brotli/xz/bzip2 on the same corpora.
+- New page "熵界对照" shows Shannon entropy versus each algorithm's bits/byte across all corpora.
+- New FASTQ-style corpus `fastq_10MiB` (150 bp reads, genome-like base distribution), included in benchmarks and CLI smoke tests.
 
 ### Changed
 
 - Benchmark charts no longer substitute an 8 KiB sample for Range Coder.
 - Input files are size-checked before allocation, so oversized inputs fail without an OOM allocation.
 - CLI tools print the error message for missing input files and failed writes instead of failing silently.
+- Benchmark snapshot refreshed with the new FASTQ dataset.
 
 ## [2.0.0] - 2026-08-18
 

@@ -50,6 +50,56 @@ for (size_t i = 0; i < data.size();) {
 ./build/rle_cpp decode output.rle restored.bin
 ```
 
+## 动手实验
+
+以下命令默认已执行 `make build` 与 `make test-data`；数字为 2.0.0 实测值，量级不应变化。
+
+### 实验 1：见证最坏膨胀 5×
+
+```bash
+./build/rle_cpp encode tests/data/random_1MiB.bin /tmp/random.rle
+python3 -c "open('/tmp/ab.bin','wb').write(b'AB' * 524288)"
+./build/rle_cpp encode /tmp/ab.bin /tmp/ab.rle
+ls -l tests/data/random_1MiB.bin /tmp/random.rle /tmp/ab.rle
+```
+
+随机数据输出约 5.2 MB（≈5×），`ABAB...` 交替数据同样约 5.2 MB（每 2 字节
+变成 2 个 5 字节行程对）。**RLE 不是通用压缩器**——这正是解码输入上限
+8 GiB 比原始数据上限 1 GiB 大的原因。
+
+### 实验 2：长重复数据上的极致压缩
+
+```bash
+./build/rle_cpp encode tests/data/repetitive_10MiB.bin /tmp/repetitive.rle
+ls -l tests/data/repetitive_10MiB.bin /tmp/repetitive.rle
+```
+
+输出仅约 26 KB（0.0025×）——10 MiB 压到 26 KB。位图、掩码、稀疏矩阵这类
+长连续数据是 RLE 的主场。注意 `textlike_10MiB` 上 RLE 反而膨胀（`make stats`
+显示约 39 bits/byte），因为自然文本几乎无连续重复。
+
+### 实验 3：单符号输入的极限
+
+```bash
+python3 -c "open('/tmp/ones.bin','wb').write(b'A' * 1048576)"
+./build/rle_cpp encode /tmp/ones.bin /tmp/ones.rle
+ls -l /tmp/ones.rle
+```
+
+输出 13 字节：magic(4) + 一个行程对(5) + CRC(4)。这是 RLE 的下界——
+任何输入至少 13 字节，不管有多长。
+
+### 实验 4：CRC 完整性
+
+```bash
+cp /tmp/ones.rle /tmp/ones-broken.rle
+printf '\xff' | dd of=/tmp/ones-broken.rle bs=1 seek=6 conv=notrunc
+./build/rle_cpp decode /tmp/ones-broken.rle /tmp/out.bin; echo "exit=$?"
+```
+
+解码应失败并输出 `checksum mismatch`。RLE 的行程对是最容易伪造的格式
+（改 `count` 就能改变输出大小），CRC 是阻止篡改的唯一防线。
+
 ## 复杂度
 
 | 方面 | 复杂度 | 说明 |

@@ -24,8 +24,12 @@
 | `textlike_10MiB` | 类文本 (10 MiB) |
 | `repetitive_10MiB` | 重复数据 (10 MiB) |
 | `random_1MiB` | 随机 (1 MiB) |
+| `fastq_10MiB` | FASTQ 测序 (10 MiB) |
 
-四个算法使用同一组文件。RLE 在随机数据上会膨胀（比值大于 1）；这是格式契约，不是测量错误。
+四个算法使用同一组文件。`fastq_10MiB` 是 150 bp reads、基因组碱基分布的
+FASTQ 风格语料（A/C/G/T + Phred 质量字符串），熵编码器可压到约 0.45×
+（DNA 序列本身只需 2 bits/碱基）；RLE 在随机数据上会膨胀（比值大于 1）；
+这些都是格式契约，不是测量错误。
 
 ## 刷新
 

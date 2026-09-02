@@ -202,6 +202,8 @@ const sidebarCatalog = [
     title: { zh: '基准测试' },
     items: [
       { text: { zh: '性能结果' }, link: '/benchmarks/results' },
+      { text: { zh: '熵界对照' }, link: '/benchmarks/entropy' },
+      { text: { zh: '经典 vs 现代' }, link: '/benchmarks/classic-vs-modern' },
       { text: { zh: '如何运行' }, link: '/benchmarks/how-to-run' },
     ],
   },

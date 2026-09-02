@@ -46,6 +46,7 @@ CORPUS: tuple[CorpusEntry, ...] = (
     CorpusEntry("random_10MiB.bin", is_large=True),
     CorpusEntry("repetitive_10MiB.bin", is_large=True),
     CorpusEntry("textlike_10MiB.bin", is_large=True),
+    CorpusEntry("fastq_10MiB.bin", is_large=True),
 )
 
 DEFAULT_CORPUS: tuple[str, ...] = tuple(c.name for c in CORPUS if not c.is_large)

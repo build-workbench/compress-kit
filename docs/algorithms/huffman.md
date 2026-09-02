@@ -48,6 +48,59 @@ struct Node {
 ./build/huffman_cpp decode output.huf restored.txt
 ```
 
+## 动手实验
+
+以下命令默认已执行 `make build` 与 `make test-data`；数字为 2.0.0 实测值，量级不应变化。
+
+### 实验 1：验证熵界 `H ≤ L < H + 1`
+
+```bash
+make stats
+```
+
+输出中 `huffman` 行的 `bits/byte` 应比 `entropy` 列高约 0.02（textlike 语料）。
+Huffman 码长是整数，无法恰好等于熵，但平均码长一定落在 `[H, H+1)` 区间内——
+这是最优前缀码的数学保证，`make stats` 让你直接看到它。
+
+### 实验 2：整数码长的代价（偏斜分布）
+
+```bash
+python3 -c "
+import random; random.seed(42)
+open('/tmp/skew.bin','wb').write(bytes(
+    ord('A') if random.random() < 0.9 else ord('B') for _ in range(1048576)))"
+./build/huffman_cpp encode /tmp/skew.bin /tmp/skew.huf
+./build/arithmetic_cpp encode /tmp/skew.bin /tmp/skew.aen
+ls -l /tmp/skew.huf /tmp/skew.aen
+```
+
+Huffman 约 145 KB，算术编码约 61 KB。原因：频率表里还有 EOF 符号（频率 1），
+树变成三叶，`B` 被迫用 2 比特。**每个符号至少 1 比特**是前缀码的硬限制，
+偏斜越极端，这个差距越大。
+
+### 实验 3：单符号输入的退化
+
+```bash
+python3 -c "open('/tmp/ones.bin','wb').write(b'A' * 1048576)"
+./build/huffman_cpp encode /tmp/ones.bin /tmp/ones.huf
+./build/rle_cpp encode /tmp/ones.bin /tmp/ones.rle
+ls -l /tmp/ones.huf /tmp/ones.rle
+```
+
+Huffman 约 132 KB（1 MiB × 1 bit/符号 + 表头），RLE 仅 13 字节（一个行程对）。
+同一输入、两种算法、一万倍的差距——选对算法比调参数重要得多。
+
+### 实验 4：CRC 完整性
+
+```bash
+cp /tmp/skew.huf /tmp/skew-broken.huf
+printf '\xff' | dd of=/tmp/skew-broken.huf bs=1 seek=2000 conv=notrunc
+./build/huffman_cpp decode /tmp/skew-broken.huf /tmp/out.bin; echo "exit=$?"
+```
+
+解码应失败并输出 `checksum mismatch`。流内任何字节被改动（包括频率表）
+都会被 CRC-32 拦下，绝不会静默解出错误数据。
+
 ## 复杂度
 
 | 方面 | 复杂度 | 说明 |

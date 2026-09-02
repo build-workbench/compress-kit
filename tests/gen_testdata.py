@@ -9,6 +9,7 @@ import random
 # - random_10MiB.bin       随机数据（10 MiB）
 # - repetitive_10MiB.bin   大量重复字节，适合 RLE 测试
 # - textlike_10MiB.bin     类文本分布，偏向 ASCII 可见字符
+# - fastq_10MiB.bin        FASTQ 风格测序数据（150bp reads、基因组碱基分布）
 # - empty.bin              空文件
 # - single_byte.bin        单字节边界样本
 # - alternating.bin        交替字节模式
@@ -77,12 +78,39 @@ def generate_literal_file(path: Path, data: bytes):
     path.write_bytes(data)
 
 
+def generate_fastq_file(path: Path, size_bytes: int):
+    """FASTQ-like corpus: 150 bp reads, genome-like base distribution,
+    Phred+33 quality strings (mean ~Q35, like Illumina)."""
+    if path.exists() and path.stat().st_size == size_bytes:
+        return
+    print(f"[gen_testdata] generating fastq-like file: {path} ({size_bytes} bytes)")
+    rng = random.Random(3)
+    bases = b"ACGTN"
+    base_probs = (0.30, 0.20, 0.20, 0.29, 0.01)  # ~human genome, 1% N
+    read_len = 150
+    read_id = 0
+    with path.open("wb") as f:
+        written = 0
+        while written < size_bytes:
+            seq = bytes(rng.choices(bases, weights=base_probs, k=read_len))
+            qual = bytes(
+                33 + max(0, min(40, 35 + rng.randint(-6, 4))) for _ in range(read_len)
+            )
+            record = f"@read_{read_id}\n".encode() + seq + b"\n+\n" + qual + b"\n"
+            if written + len(record) > size_bytes:
+                record = record[: size_bytes - written]  # last record may truncate
+            f.write(record)
+            written += len(record)
+            read_id += 1
+
+
 def main():
     ensure_dir()
     generate_random_file(DATA_DIR / "random_1MiB.bin", 1 * 1024 * 1024)
     generate_random_file(DATA_DIR / "random_10MiB.bin", 10 * 1024 * 1024)
     generate_repetitive_file(DATA_DIR / "repetitive_10MiB.bin", 10 * 1024 * 1024)
     generate_textlike_file(DATA_DIR / "textlike_10MiB.bin", 10 * 1024 * 1024)
+    generate_fastq_file(DATA_DIR / "fastq_10MiB.bin", 10 * 1024 * 1024)
     generate_literal_file(DATA_DIR / "empty.bin", b"")
     generate_literal_file(DATA_DIR / "single_byte.bin", b"\x00")
     generate_literal_file(DATA_DIR / "alternating.bin", (b"\xAA\x55" * 512))

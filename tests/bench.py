@@ -17,11 +17,13 @@ import metadata
 
 TIMEOUT_SECONDS = 60.0
 
-# Same-size comparisons first; repetitive is the RLE-meaningful extra set.
+# Same-size comparisons first; repetitive is the RLE-meaningful extra set,
+# fastq is the genome-flavored extra set.
 DATASETS = (
     "textlike_10MiB.bin",
     "repetitive_10MiB.bin",
     "random_1MiB.bin",
+    "fastq_10MiB.bin",
 )
 
 
