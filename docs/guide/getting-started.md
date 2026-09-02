@@ -44,7 +44,7 @@ choco install mingw cmake python3 make
 ### 克隆仓库
 
 ```bash
-git clone https://github.com/open-genomics/compress-kit.git
+git clone https://github.com/build-workbench/compress-kit.git
 cd compress-kit
 ```
 
@@ -112,4 +112,4 @@ clang++ -std=c++17 -O2 main.cpp -o huffman_cpp
 
 - 阅读 [算法说明](/algorithms/huffman) 了解各算法原理与差异
 - 查看 [架构概览](/architecture/) 了解系统分层与二进制格式
-- 查看 [CHANGELOG](https://github.com/open-genomics/compress-kit/blob/master/CHANGELOG.md) 了解最新更新
+- 查看 [CHANGELOG](https://github.com/build-workbench/compress-kit/blob/main/CHANGELOG.md) 了解最新更新

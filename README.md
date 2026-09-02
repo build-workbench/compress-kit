@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/open-genomics/compress-kit/actions/workflows/ci.yml"><img src="https://github.com/open-genomics/compress-kit/actions/workflows/ci.yml/badge.svg" alt="CI Status"></a>
+  <a href="https://github.com/build-workbench/compress-kit/actions/workflows/ci.yml"><img src="https://github.com/build-workbench/compress-kit/actions/workflows/ci.yml/badge.svg" alt="CI Status"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/许可证-MIT-green.svg" alt="License"></a>
 </p>
 
@@ -13,7 +13,7 @@ CompressKit 是一个面向学习与验证的压缩算法仓库：同一组经�
 C++17 实现，通过统一命令行契约和 round-trip 测试验证正确性。
 它不是黑盒压缩库，而是可以阅读、运行、对比和验证的算法实验室。
 
-📖 **在线文档**：<https://open-genomics.github.io/compress-kit/>
+📖 **在线文档**：<https://build-workbench.github.io/compress-kit/>
 
 文档站包含算法详解、架构设计、API 参考与基准测试结果。如需本地预览：
 
@@ -39,7 +39,7 @@ cd docs && npm ci && npm run dev
 ## 快速开始
 
 ```bash
-git clone https://github.com/open-genomics/compress-kit.git
+git clone https://github.com/build-workbench/compress-kit.git
 cd compress-kit
 
 make build

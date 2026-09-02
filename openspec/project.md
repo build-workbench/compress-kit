@@ -2,7 +2,7 @@
 
 ## Identity
 
-- **Canonical repository**: `open-genomics/compress-kit`
+- **Canonical repository**: `build-workbench/compress-kit`
 - **Version**: 2.0.0
 - **Lifecycle**: educational/hobby; breaking changes allowed
 - **Language**: C++17 (header-only algorithm library + CLI executables)

@@ -22,7 +22,7 @@ export default withMermaid(defineConfig({
   appearance: true,
 
   sitemap: {
-    hostname: 'https://open-genomics.github.io/compress-kit/',
+    hostname: 'https://build-workbench.github.io/compress-kit/',
   },
 
   locales: {
@@ -33,7 +33,7 @@ export default withMermaid(defineConfig({
         nav: buildNav('zh'),
         sidebar: buildSidebar('zh'),
         editLink: {
-          pattern: 'https://github.com/open-genomics/compress-kit/edit/master/docs/:path',
+          pattern: 'https://github.com/build-workbench/compress-kit/edit/main/docs/:path',
           text: '在 GitHub 上编辑此页',
         },
         footer: false,
@@ -77,7 +77,7 @@ export default withMermaid(defineConfig({
 
   themeConfig: {
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/open-genomics/compress-kit' },
+      { icon: 'github', link: 'https://github.com/build-workbench/compress-kit' },
     ],
     logo: {
       light: '/logo.svg',
@@ -100,7 +100,7 @@ export default withMermaid(defineConfig({
   },
 
   head: [
-    ['link', { rel: 'canonical', href: 'https://open-genomics.github.io/compress-kit/' }],
+    ['link', { rel: 'canonical', href: 'https://build-workbench.github.io/compress-kit/' }],
     ['meta', { charset: 'UTF-8' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }],
     ['meta', { name: 'theme-color', content: '#2563eb', media: '(prefers-color-scheme: light)' }],
@@ -112,7 +112,7 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:title', content: 'CompressKit | 经典无损压缩算法集' }],
     ['meta', { property: 'og:description', content: '使用 C++17 实现的经典无损压缩算法。' }],
-    ['meta', { property: 'og:url', content: 'https://open-genomics.github.io/compress-kit/' }],
+    ['meta', { property: 'og:url', content: 'https://build-workbench.github.io/compress-kit/' }],
     ['meta', { property: 'og:site_name', content: 'CompressKit' }],
     ['meta', { property: 'og:image', content: '/compress-kit/og-image.svg' }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/compress-kit/logo.svg' }],

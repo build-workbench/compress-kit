@@ -3,8 +3,8 @@
 ## Project Identity
 
 - Product: **CompressKit** - C++17 compression laboratory
-- Repository: `open-genomics/compress-kit`
-- Default branch: `master`
+- Repository: `build-workbench/compress-kit`
+- Default branch: `main`
 
 ## Core Contract
 

@@ -3,7 +3,6 @@ name: Docs (GitHub Pages)
 on:
   push:
     branches:
-      - master
       - main
     paths:
       - "docs/**"
@@ -22,7 +21,7 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.repository == 'open-genomics/compress-kit'
+    if: github.repository == 'build-workbench/compress-kit'
     runs-on: ubuntu-latest
     timeout-minutes: 35
     environment:

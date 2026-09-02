@@ -106,6 +106,6 @@ style categories and uses semantic versioning for releases.
 - Documented maximum input size of 4 GiB.
 - Documented maximum decoded output size of 1 GiB for decompression-bomb protection.
 
-[Unreleased]: https://github.com/open-genomics/compress-kit/compare/v2.0.0...HEAD
-[2.0.0]: https://github.com/open-genomics/compress-kit/compare/v1.0.0...v2.0.0
-[1.0.0]: https://github.com/open-genomics/compress-kit/releases/tag/v1.0.0
+[Unreleased]: https://github.com/build-workbench/compress-kit/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/build-workbench/compress-kit/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/build-workbench/compress-kit/releases/tag/v1.0.0
