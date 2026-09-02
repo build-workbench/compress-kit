@@ -10,10 +10,11 @@ namespace compresskit {
 constexpr uint32_t SYMBOL_LIMIT = 257;
 constexpr uint32_t EOF_SYMBOL = SYMBOL_LIMIT - 1;
 
-// Size limits. Raw data (encode input / decode output) must stay below
-// MAX_RAW_SIZE; the strict encode bound also keeps uint32 frequency counts
-// from wrapping. Compressed streams fed to a decoder may be larger than the
-// raw data they encode (RLE expands incompressible input ~5x), so decode
+// Size limits. Raw data (encode input) must be strictly below MAX_RAW_SIZE;
+// the strict encode bound also keeps uint32 frequency counts from wrapping.
+// Decoders refuse output that would exceed MAX_RAW_SIZE (exactly MAX_RAW_SIZE
+// bytes is allowed). Compressed streams fed to a decoder may be larger than
+// the raw data they encode (RLE expands incompressible input ~5x), so decode
 // input gets its own, larger bound.
 constexpr uint64_t MAX_RAW_SIZE = 1ULL * 1024 * 1024 * 1024;         // 1 GiB
 constexpr uint64_t MAX_COMPRESSED_SIZE = 8ULL * 1024 * 1024 * 1024;  // 8 GiB

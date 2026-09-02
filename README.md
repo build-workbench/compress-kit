@@ -78,4 +78,4 @@ tests/              # 测试语料生成与 CLI smoke 测试
 
 ## 许可证
 
-[MIT 许可证](LICENSE) · 版权所有 © 2025-2026 AICL-Lab
+[MIT 许可证](LICENSE) · 版权所有 © 2024-2026 encoding contributors

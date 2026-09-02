@@ -6,6 +6,7 @@
 #include "compresskit/checksum.hpp"
 #include "compresskit/constants.hpp"
 #include "compresskit/frequency_table.hpp"
+#include "compresskit/result.hpp"
 #include "compresskit/serialization.hpp"
 
 // Range coder (32-bit state, byte renormalisation, carryless, static model).
@@ -158,7 +159,7 @@ std::vector<uint8_t> rangecoder_decode_buffer(const std::vector<uint8_t>& input)
             break;
         }
         if (out.size() >= compresskit::MAX_RAW_SIZE) {
-            throw std::runtime_error("range: output size limit exceeded");
+            throw compresskit::SizeLimitError("range: output size limit exceeded");
         }
         out.push_back(static_cast<uint8_t>(sym));
     }

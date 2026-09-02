@@ -50,6 +50,24 @@ def assert_invalid_mode(binary: Path, source: Path, output: Path) -> None:
         raise RuntimeError(f"{binary} did not explain invalid mode")
 
 
+def assert_missing_input(binary: Path, output: Path) -> None:
+    missing = output.with_name("does-not-exist.bin")
+    proc = run([str(binary), "encode", str(missing), str(output)])
+    if proc.returncode == 0:
+        raise RuntimeError(f"{binary} succeeded with a missing input file")
+    if not proc.stderr.strip():
+        raise RuntimeError(f"{binary} failed silently on a missing input file")
+
+
+def assert_help(binary: Path) -> None:
+    for flag in ("--help", "-h"):
+        proc = run([str(binary), flag])
+        if proc.returncode != 0:
+            raise RuntimeError(f"{binary} exited {proc.returncode} for {flag}")
+        if "Usage:" not in proc.stdout + proc.stderr:
+            raise RuntimeError(f"{binary} did not print usage for {flag}")
+
+
 def assert_round_trip(binary: Path, source: Path, encoded: Path, decoded: Path) -> None:
     run_checked([str(binary), "encode", str(source), str(encoded)])
     run_checked([str(binary), "decode", str(encoded), str(decoded)])
@@ -86,11 +104,17 @@ def main() -> int:
             checks += 1
             print(f"PASS usage {algo.name}")
 
+            assert_help(binary)
+            checks += 2
+            print(f"PASS help {algo.name}")
+
             assert_wrong_arity(binary, ["encode", str(corpus[0])], "too few args")
             checks += 1
             assert_wrong_arity(binary, ["encode", str(corpus[0]), "o", "extra"], "too many args")
             checks += 1
             assert_invalid_mode(binary, corpus[0], tmpdir / f"{algo.name}.invalid")
+            checks += 1
+            assert_missing_input(binary, tmpdir / f"{algo.name}.missing.out")
             checks += 1
             print(f"PASS arg-validation {algo.name}")
 

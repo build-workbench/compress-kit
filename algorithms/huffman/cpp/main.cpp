@@ -10,6 +10,7 @@
 #include "compresskit/checksum.hpp"
 #include "compresskit/constants.hpp"
 #include "compresskit/frequency_table.hpp"
+#include "compresskit/result.hpp"
 #include "compresskit/serialization.hpp"
 
 // Huffman coding (static model, prefix codes).
@@ -209,7 +210,7 @@ std::vector<uint8_t> huffman_decode_buffer(const std::vector<uint8_t>& input) {
                 break;
             }
             if (out.size() >= compresskit::MAX_RAW_SIZE) {
-                throw std::runtime_error("huffman: output size limit exceeded");
+                throw compresskit::SizeLimitError("huffman: output size limit exceeded");
             }
             out.push_back(static_cast<uint8_t>(sym));
         }

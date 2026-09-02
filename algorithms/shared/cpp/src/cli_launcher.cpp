@@ -1,5 +1,6 @@
 #include "compresskit/cli_launcher.hpp"
 
+#include <cstdio>
 #include <iostream>
 #include <string>
 
@@ -9,11 +10,16 @@ namespace cli {
 namespace {
 // program + mode + input + output
 constexpr int EXPECTED_ARGC = 4;
+const char* kUsage = "Usage: %s encode|decode input output\n";
 }  // namespace
 
 int run(const Algorithm& algo, int argc, char** argv) {
+    if (argc == 2 && (std::string(argv[1]) == "--help" || std::string(argv[1]) == "-h")) {
+        std::fprintf(stderr, kUsage, argv[0]);
+        return 0;
+    }
     if (argc != EXPECTED_ARGC) {
-        std::cerr << "Usage: " << argv[0] << " encode|decode input output\n";
+        std::fprintf(stderr, kUsage, argv[0]);
         return 1;
     }
 
@@ -27,7 +33,8 @@ int run(const Algorithm& algo, int argc, char** argv) {
     } else if (mode == "decode") {
         ok = decode_file_via_buffer(algo.decode, input_path, output_path);
     } else {
-        std::cerr << "unknown mode, expected encode or decode\n";
+        std::fprintf(stderr, "unknown mode, expected encode or decode\n");
+        std::fprintf(stderr, kUsage, argv[0]);
         return 1;
     }
 

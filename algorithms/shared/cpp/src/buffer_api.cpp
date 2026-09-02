@@ -21,7 +21,9 @@ bool write_file(const std::string& path, const std::vector<uint8_t>& data) {
     return static_cast<bool>(out);
 }
 
-std::vector<uint8_t> read_file(const std::string& path) {
+// Reads the whole file into memory, rejecting files at or above `max_size`
+// before allocating, so oversized inputs fail without an OOM allocation.
+std::vector<uint8_t> read_file(const std::string& path, uint64_t max_size) {
     std::ifstream in(path, std::ios::binary | std::ios::ate);
     if (!in) {
         throw std::runtime_error("cannot open input file");
@@ -29,6 +31,9 @@ std::vector<uint8_t> read_file(const std::string& path) {
     std::streampos size = in.tellg();
     if (size < 0) {
         throw std::runtime_error("cannot determine input file size");
+    }
+    if (static_cast<uint64_t>(size) >= max_size) {
+        throw SizeLimitError("input file exceeds size limit");
     }
     std::vector<uint8_t> data(static_cast<std::size_t>(size));
     in.seekg(0, std::ios::beg);
@@ -43,15 +48,20 @@ std::vector<uint8_t> read_file(const std::string& path) {
 
 template <typename Layer>
 bool apply_file(BufferTransform transform, const std::string& input_path,
-                const std::string& output_path, Layer layer) {
+                const std::string& output_path, Layer layer, uint64_t max_input_size) {
     try {
-        std::vector<uint8_t> input = read_file(input_path);
+        std::vector<uint8_t> input = read_file(input_path, max_input_size);
         Result<std::vector<uint8_t>> result = layer(transform, input);
         if (!result.ok()) {
             return false;
         }
-        return write_file(output_path, result.value);
-    } catch (const std::exception&) {
+        if (!write_file(output_path, result.value)) {
+            std::fprintf(stderr, "failed to write output file\n");
+            return false;
+        }
+        return true;
+    } catch (const std::exception& e) {
+        std::fprintf(stderr, "%s\n", e.what());
         return false;
     }
 }
@@ -61,6 +71,7 @@ bool apply_file(BufferTransform transform, const std::string& input_path,
 Result<std::vector<uint8_t>> encode_buffer(BufferTransform transform,
                                            const std::vector<uint8_t>& input) {
     if (input.size() >= MAX_RAW_SIZE) {
+        std::fprintf(stderr, "encode failed: input exceeds size limit\n");
         return {StatusCode::ERR_SIZE_LIMIT, {}};
     }
     try {
@@ -75,14 +86,21 @@ Result<std::vector<uint8_t>> encode_buffer(BufferTransform transform,
 Result<std::vector<uint8_t>> decode_buffer(BufferTransform transform,
                                            const std::vector<uint8_t>& input) {
     if (input.size() >= MAX_COMPRESSED_SIZE) {
+        std::fprintf(stderr, "decode failed: input exceeds size limit\n");
         return {StatusCode::ERR_SIZE_LIMIT, {}};
     }
     try {
         std::vector<uint8_t> out = transform(input);
+        // Decoders already refuse to grow past MAX_RAW_SIZE internally, but
+        // keep the post-condition for any future transform that does not.
         if (out.size() > MAX_RAW_SIZE) {
+            std::fprintf(stderr, "decode failed: output exceeds size limit\n");
             return {StatusCode::ERR_SIZE_LIMIT, {}};
         }
         return {StatusCode::OK, std::move(out)};
+    } catch (const SizeLimitError& e) {
+        std::fprintf(stderr, "decode failed: %s\n", e.what());
+        return {StatusCode::ERR_SIZE_LIMIT, {}};
     } catch (const std::exception& e) {
         std::fprintf(stderr, "decode failed: %s\n", e.what());
         return {StatusCode::ERR_CORRUPT, {}};
@@ -91,12 +109,12 @@ Result<std::vector<uint8_t>> decode_buffer(BufferTransform transform,
 
 bool encode_file_via_buffer(BufferTransform transform, const std::string& input_path,
                             const std::string& output_path) {
-    return apply_file(transform, input_path, output_path, encode_buffer);
+    return apply_file(transform, input_path, output_path, encode_buffer, MAX_RAW_SIZE);
 }
 
 bool decode_file_via_buffer(BufferTransform transform, const std::string& input_path,
                             const std::string& output_path) {
-    return apply_file(transform, input_path, output_path, decode_buffer);
+    return apply_file(transform, input_path, output_path, decode_buffer, MAX_COMPRESSED_SIZE);
 }
 
 }  // namespace compresskit

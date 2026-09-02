@@ -6,6 +6,7 @@
 #include "compresskit/buffer_api.hpp"
 #include "compresskit/checksum.hpp"
 #include "compresskit/constants.hpp"
+#include "compresskit/result.hpp"
 #include "compresskit/serialization.hpp"
 
 // Run-Length encoding.
@@ -20,7 +21,9 @@ std::vector<uint8_t> rle_encode_buffer(const std::vector<uint8_t>& input) {
         throw std::runtime_error("RLE: input too large");
     }
     std::vector<uint8_t> out;
-    out.reserve(input.size() / 8 + compresskit::MAGIC_SIZE + compresskit::RLE_PAIR_SIZE);
+    // RLE can expand incompressible input ~5x (one RLE_PAIR_SIZE pair per byte).
+    out.reserve(input.size() / 8 + compresskit::MAGIC_SIZE + compresskit::RLE_PAIR_SIZE +
+                compresskit::INITIAL_ENCODE_OVERHEAD);
     compresskit::write_magic(out, compresskit::RLE_MAGIC);
 
     if (input.empty()) {
@@ -68,7 +71,7 @@ std::vector<uint8_t> rle_decode_buffer(const std::vector<uint8_t>& input) {
             throw std::runtime_error("RLE: count must not be 0");
         }
         if (out.size() + count > compresskit::MAX_RAW_SIZE) {
-            throw std::runtime_error("RLE: output size limit exceeded");
+            throw compresskit::SizeLimitError("RLE: output size limit exceeded");
         }
         out.insert(out.end(), count, value);
     }

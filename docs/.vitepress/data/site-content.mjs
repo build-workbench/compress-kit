@@ -36,7 +36,7 @@ export const algorithmCatalog = [
     name: { zh: '算术编码' },
     chartLabel: { zh: 'Arithmetic' },
     description: {
-      zh: '整个消息编码为单个数字。达到熵极限，实现最大压缩率。',
+      zh: '整个消息编码为单个数字，压缩率接近理论熵限。',
     },
     compression: { zh: '高' },
     speed: { zh: '中速' },
@@ -54,7 +54,7 @@ export const algorithmCatalog = [
     name: { zh: '区间编码' },
     chartLabel: { zh: 'Range' },
     description: {
-      zh: '基于整数的算术编码。生产级的速度与压缩率平衡。',
+      zh: '基于整数的算术编码，在速度与压缩率之间取得均衡。',
     },
     compression: { zh: '高' },
     speed: { zh: '快速' },

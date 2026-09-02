@@ -118,11 +118,12 @@ inline std::vector<uint32_t> read_magic_and_frequency_header(const uint8_t* data
 // Pre-checks the leading magic before CRC verification, so that legacy
 // formats are classified correctly instead of being reported as checksum
 // errors.  Throws "unsupported legacy format" for recognizable v1 magic,
-// "bad magic" for unknown magic, or returns silently for v2 magic.
+// "bad magic" for unknown magic, "input too short" for streams shorter than
+// the magic itself, or returns silently for v2 magic.
 inline void precheck_magic(const std::vector<uint8_t>& input, const char* expected_v2_magic,
                            const char* algo_name, bool use_legacy_check = true) {
     if (input.size() < MAGIC_SIZE) {
-        return;  // Let verify_crc32/verify_magic handle short input
+        throw std::runtime_error(std::string(algo_name) + ": input too short");
     }
     MagicClass cls = classify_magic(input.data(), input.size(), expected_v2_magic);
     if (cls == MagicClass::V2) {

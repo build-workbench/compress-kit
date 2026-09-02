@@ -7,6 +7,7 @@
 #include "compresskit/checksum.hpp"
 #include "compresskit/constants.hpp"
 #include "compresskit/frequency_table.hpp"
+#include "compresskit/result.hpp"
 #include "compresskit/serialization.hpp"
 
 // Arithmetic coding (32-bit state, static model).
@@ -170,7 +171,7 @@ std::vector<uint8_t> arithmetic_decode_buffer(const std::vector<uint8_t>& input)
             break;
         }
         if (out.size() >= compresskit::MAX_RAW_SIZE) {
-            throw std::runtime_error("arithmetic: output size limit exceeded");
+            throw compresskit::SizeLimitError("arithmetic: output size limit exceeded");
         }
         out.push_back(static_cast<uint8_t>(sym));
     }

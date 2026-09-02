@@ -36,7 +36,7 @@ rejected as bad magic.
 ## Key Constraints
 
 - Maintain binary format compatibility (magic bytes, frequency table LE layout, RLE pair layout, CRC-32 trailer)
-- Size limits: raw data (encode input / decode output) strictly below 1 GiB; compressed decode input strictly below 8 GiB
+- Size limits: encode input strictly below 1 GiB; decode output no larger than 1 GiB; compressed decode input strictly below 8 GiB
 - Error messages in code must be English
 - User-facing documentation (README, docs/) must be in Simplified Chinese
 

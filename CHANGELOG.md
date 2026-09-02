@@ -13,11 +13,14 @@ style categories and uses semantic versioning for releases.
 - `make sanitize` (ASan/UBSan) and a matching CI job.
 - `make bench` refreshes the docs benchmark snapshot on shared 10 MiB / 1 MiB corpora.
 - `make stats` prints Shannon entropy versus each algorithm's bits/byte.
-- Academy pages for Arithmetic, Range Coder, and RLE.
+- CLI tools accept `--help` / `-h` to print usage.
+- Decoders report size-limit violations as `ERR_SIZE_LIMIT` (previously misclassified as corruption).
 
 ### Changed
 
 - Benchmark charts no longer substitute an 8 KiB sample for Range Coder.
+- Input files are size-checked before allocation, so oversized inputs fail without an OOM allocation.
+- CLI tools print the error message for missing input files and failed writes instead of failing silently.
 
 ## [2.0.0] - 2026-08-18
 
