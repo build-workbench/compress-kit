@@ -44,4 +44,4 @@ rejected as bad magic.
 
 Binary format changes and new algorithms require careful design review.
 Internal refactors and bug fixes that preserve existing contract may be
-implemented directly.
+implemented directly. CHANGELOG records user-facing changes only.
