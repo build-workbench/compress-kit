@@ -29,7 +29,7 @@ cd docs && npm ci && npm run dev
 
 - **Algorithm learning and implementation reference**: most existing arithmetic/range coding implementations online are legacy code from years ago (lacking modern conventions and abstractions). CompressKit provides a modern C++ implementation with a clean code structure, clear comments and RAII compliance, suitable as learning material or a dependency-free code reference.
 - **Evaluation comparison and benchmark (Baseline)**: provides a unified CLI contract and test corpus, making it easy to intuitively compare the compression ratios and throughput of different classic algorithms across various data distributions when developing or evaluating new coding strategies.
-- **Explicit non-goals (Non-goals)**: this project focuses on standard implementations and comparative verification of classic algorithms, and is not an industrial-grade general-purpose compressor. For extreme production throughput and LZ dictionary compression, use Zstandard or libdeflate.
+- **Explicit non-goals (Non-goals)**: this project focuses on standard implementations and comparative verification of classic algorithms, and is not an industrial-grade general-purpose compressor. For high production throughput and LZ dictionary compression, use Zstandard or libdeflate.
 
 ## What's Included
 
@@ -124,7 +124,7 @@ cd docs && npm ci && npm run dev
 
 - **算法学习与实现参考**：网上现存的算术/区间编码实现多为早年遗留代码（缺乏现代规范与抽象）。CompressKit 提供代码结构规范、注释清晰、遵循 RAII 的现代 C++ 实现，适合作为学习资料或无依赖的代码参考。
 - **评测对照与基准（Baseline）**：提供统一的 CLI 契约与测试语料，便于在自研或对比新编码策略时，直观对照不同经典算法在各类数据分布下的压缩率与吞吐量。
-- **明确非目标（Non-goals）**：本项目专注于经典算法的规范实现与对比验证，非工业级通用压缩器。如需生产环境极致吞吐与 LZ 字典压缩，请使用 Zstandard 或 libdeflate。
+- **明确非目标（Non-goals）**：本项目专注于经典算法的规范实现与对比验证，非工业级通用压缩器。如需生产环境的高吞吐与 LZ 字典压缩，请使用 Zstandard 或 libdeflate。
 
 ## 包含内容
 
