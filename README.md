@@ -1,3 +1,7 @@
+**English** | [中文](#chinese)
+
+<a id="top"></a>
+
 # CompressKit
 
 <p align="center">
@@ -91,6 +95,7 @@ tests/              # 测试语料生成与 CLI smoke 测试
 ---
 
 <a id="chinese"></a>
+[English](#top) | **中文**
 
 # CompressKit
 
