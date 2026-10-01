@@ -1,6 +1,100 @@
 # CompressKit
 
 <p align="center">
+  <strong>Reference implementations and evaluation benchmarks of classic lossless compression (entropy coding) algorithms in modern C++17.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/build-workbench/compress-kit/actions/workflows/ci.yml"><img src="https://github.com/build-workbench/compress-kit/actions/workflows/ci.yml/badge.svg" alt="CI Status"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+</p>
+
+CompressKit covers **Huffman coding, Arithmetic Coding, Range Coding and RLE**. It provides a unified binary stream specification (magic number + frequency table + CRC-32 checksum), strict safety boundary checks, and reproducible evaluation benchmarks.
+
+Zero external dependencies, implemented purely with the modern C++ standard library.
+
+📖 **Online documentation**: <https://build-workbench.github.io/compress-kit/>
+
+The documentation site contains algorithm details, the binary format specification, API references and interactive benchmark charts. For local preview:
+
+```bash
+cd docs && npm ci && npm run dev
+```
+
+## Goals & Positioning
+
+- **Algorithm learning and implementation reference**: most existing arithmetic/range coding implementations online are legacy code from years ago (lacking modern conventions and abstractions). CompressKit provides a modern C++ implementation with a clean code structure, clear comments and RAII compliance, suitable as learning material or a dependency-free code reference.
+- **Evaluation comparison and benchmark (Baseline)**: provides a unified CLI contract and test corpus, making it easy to intuitively compare the compression ratios and throughput of different classic algorithms across various data distributions when developing or evaluating new coding strategies.
+- **Explicit non-goals (Non-goals)**: this project focuses on standard implementations and comparative verification of classic algorithms, and is not an industrial-grade general-purpose compressor. For extreme production throughput and LZ dictionary compression, use Zstandard or libdeflate.
+
+## What's Included
+
+| Algorithm | Magic Number | Characteristics & Applicable Scenarios |
+|------|------|----------------|
+| Huffman coding | `HFM2` | Optimal prefix code based on symbol frequencies, suitable for general text and prefix code principle verification |
+| Arithmetic coding | `AEN2` | Interval-division bitstream coding that approaches the Shannon entropy limit, suitable for understanding high-compression-ratio entropy coding principles |
+| Range coding | `RCN2` | An integer byte-level variant of arithmetic coding, suitable for comparing throughput and engineering implementation differences |
+| RLE run-length coding | `RLE2` | Minimal coding for continuously repeated data, with an intuitive format and low overhead |
+| LZSS dictionary coding | `LZS2` | Sliding-window-based LZ dictionary coding, the LZ foundation of gzip-family algorithms, suitable for data with repeated segments |
+
+All command-line tools follow:
+
+```bash
+<binary> <encode|decode> <input> <output>
+```
+
+## Quick Start
+
+```bash
+git clone https://github.com/build-workbench/compress-kit.git
+cd compress-kit
+
+make build
+make test
+```
+
+Quick round-trip verification:
+
+```bash
+printf "Hello CompressKit\n" > input.txt
+./build/huffman_cpp encode input.txt output.huf
+./build/huffman_cpp decode output.huf restored.txt
+diff input.txt restored.txt
+```
+
+## Repository Structure
+
+```text
+algorithms/
+  huffman/cpp/      # Huffman 编码 CLI
+  arithmetic/cpp/   # 算术编码 CLI
+  range/cpp/        # 区间编码 CLI
+  rle/cpp/          # RLE 行程编码 CLI
+  lzss/cpp/         # LZSS 字典编码 CLI
+  shared/cpp/       # 公共库（序列化、位读写、频率表、CLI 框架）
+docs/               # VitePress 中文文档站
+tests/              # 测试语料生成与 CLI smoke 测试
+```
+
+## Engineering Baseline
+
+| Command | Purpose |
+|------|------|
+| `make build` | Build all C++ CLI tools (CMake) |
+| `make test` | Run unit tests and CLI smoke tests |
+| `make lint` | clang-format dry-run |
+
+## License
+
+[MIT License](LICENSE) · Copyright © 2024-2026 encoding contributors
+
+---
+
+<a id="chinese"></a>
+
+# CompressKit
+
+<p align="center">
   <strong>使用现代 C++17 实现的经典无损压缩（熵编码）算法参考实现与评测基准。</strong>
 </p>
 
