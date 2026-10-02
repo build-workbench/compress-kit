@@ -13,7 +13,7 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
 </p>
 
-CompressKit covers **Huffman coding, Arithmetic Coding, Range Coding and RLE**. It provides a unified binary stream specification (magic number + frequency table + CRC-32 checksum), strict safety boundary checks, and reproducible evaluation benchmarks.
+CompressKit covers **Huffman coding, Arithmetic Coding, Range Coding, RLE and LZSS**. It provides a unified binary stream specification (magic number + frequency table + CRC-32 checksum), strict safety boundary checks, and reproducible evaluation benchmarks.
 
 Zero external dependencies, implemented purely with the modern C++ standard library.
 
@@ -90,7 +90,7 @@ tests/              # 测试语料生成与 CLI smoke 测试
 
 ## License
 
-[MIT License](LICENSE) · Copyright © 2024-2026 encoding contributors
+[MIT License](LICENSE) · Copyright © 2026 build-workbench
 
 ---
 
@@ -108,7 +108,7 @@ tests/              # 测试语料生成与 CLI smoke 测试
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/许可证-MIT-green.svg" alt="License"></a>
 </p>
 
-CompressKit 涵盖 **Huffman 编码、算术编码 (Arithmetic Coding)、区间编码 (Range Coding) 与 RLE**。提供统一的二进制流规范（魔数 + 频率表 + CRC-32 校验）、严格的安全边界检查与可复现的评测基准。
+CompressKit 涵盖 **Huffman 编码、算术编码 (Arithmetic Coding)、区间编码 (Range Coding)、RLE 与 LZSS**。提供统一的二进制流规范（魔数 + 频率表 + CRC-32 校验）、严格的安全边界检查与可复现的评测基准。
 
 零外部依赖，纯现代 C++ 标准库实现。
 
@@ -185,4 +185,4 @@ tests/              # 测试语料生成与 CLI smoke 测试
 
 ## 许可证
 
-[MIT 许可证](LICENSE) · 版权所有 © 2024-2026 encoding contributors
+[MIT 许可证](LICENSE) · 版权所有 © 2026 build-workbench
